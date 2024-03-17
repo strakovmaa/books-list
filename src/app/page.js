@@ -3,15 +3,14 @@
 import {
   Container,
   CssBaseline,
-  FormControlLabel,
   Grid,
-  Switch,
   ThemeProvider,
   createTheme
 } from "@mui/material";
-import { useState } from "react";
 import Book from "./components/Book";
+import Filters from "./components/Filters";
 import { goodreads } from "./data/goodreads";
+import { useFilters } from "./hooks/useFilters";
 
 const books = goodreads.slice(0, 50).map((book) => {
   const isUnread =
@@ -33,74 +32,27 @@ const theme = createTheme({
 });
 
 export default function Home() {
-  // const overFour = books.filter((book) => book["Average Rating"] > 4);
-  const [applyRating, setApplyRating] = useState(false);
-  const [applyMyRating, setApplyMyRating] = useState(false);
-  const [applyUnread, setApplyUnread] = useState(false);
-
-  const handleRatingChange = (event) => {
-    setApplyRating(event.target.checked);
-  };
-
-  const handleMyRatingChange = (event) => {
-    setApplyMyRating(event.target.checked);
-  };
-
-  const handleUnreadChange = (event) => {
-    setApplyUnread(event.target.checked);
-  };
-
-  const filterRating = (book) => {
-    if (applyRating === true) {
-      return book["Average Rating"] > 4.5;
-    }
-    return true;
-  };
-
-  const filterMyRating = (book) => {
-    if (applyMyRating === true) {
-      return book["My Rating"] > 0;
-    }
-    return true;
-  };
-
-  const filterUnread = (book) => {
-    if (applyUnread === true) {
-      return book.isUnread;
-    }
-    return true;
-  };
-
-  const getResultBooks = () => {
-    return books
-      .filter(filterRating)
-      .filter(filterMyRating)
-      .filter(filterUnread);
-  };
-
-  const resultBooks = getResultBooks();
+  const {
+    resultBooks,
+    applyRating,
+    handleRatingChange,
+    applyMyRating,
+    handleMyRatingChange,
+    applyUnread,
+    handleUnreadChange
+  } = useFilters(books);
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container maxWidth="lg">
-        <FormControlLabel
-          control={
-            <Switch checked={applyRating} onChange={handleRatingChange} />
-          }
-          label="Najlepšie hodnotené"
-        />
-        <FormControlLabel
-          control={
-            <Switch checked={applyMyRating} onChange={handleMyRatingChange} />
-          }
-          label="Moje hodnotené"
-        />
-        <FormControlLabel
-          control={
-            <Switch checked={applyUnread} onChange={handleUnreadChange} />
-          }
-          label="Neprečítané"
+        <Filters
+          applyRating={applyRating}
+          handleRatingChange={handleRatingChange}
+          applyMyRating={applyMyRating}
+          handleMyRatingChange={handleMyRatingChange}
+          applyUnread={applyUnread}
+          handleUnreadChange={handleUnreadChange}
         />
 
         <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
