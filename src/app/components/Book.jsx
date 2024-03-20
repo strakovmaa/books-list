@@ -1,3 +1,4 @@
+import { Warning } from "@mui/icons-material";
 import {
   Button,
   Card,
@@ -11,7 +12,6 @@ import MyRating from "./MyRating";
 import MyReview from "./MyReview";
 import NewRating from "./NewRating";
 import Shelves from "./Shelves";
-import ToRead from "./ToRead";
 
 export default function Book({ book }) {
   console.log("book:", book);
@@ -28,24 +28,35 @@ export default function Book({ book }) {
       variant="outlined"
       sx={(theme) => ({
         height: "100%",
+        display: "flex",
+        flexDirection: "column",
         borderColor: isUnread ? theme.palette.primary.main : undefined
       })}
     >
-      <CardContent>
-        <Typography variant="h4" gutterBottom>
-          {book.Title} <i>({book.Author})</i>
+      <CardContent sx={{ flexGrow: 1 }}>
+        <Typography variant="h5" gutterBottom>
+          {book.Title}
         </Typography>
+        <Typography variant="h6" gutterBottom>
+          {book.Author}, {book["Original Publication Year"]}
+        </Typography>
+
         <Stack gap={2}>
-          <MyRating rating={userRating} />
+          <MyRating rating={book["Average Rating"]} />
+
           <Shelves shelves={book.Bookshelves} />
-          <MyReview review={book["My Review"]} />
-          <ToRead book={book} isUnread={isUnread} />
+          <MyReview review={book["My Review"]} userRating={userRating} />
         </Stack>
       </CardContent>
 
       {isUnread && (
         <CardActions>
-          <Button variant="contained" onClick={handleClick}>
+          <Button
+            fullWidth
+            variant="outlined"
+            onClick={handleClick}
+            startIcon={book["Average Rating"] > 4 ? <Warning /> : undefined}
+          >
             Prečítať
           </Button>
         </CardActions>

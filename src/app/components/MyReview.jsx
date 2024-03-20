@@ -1,20 +1,43 @@
-import { Button, Typography } from "@mui/material";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
+import MyRating from "./MyRating";
 
-export default function MyReview({ review }) {
-  const content = review === "" ? "BEZ RECENZIE" : review;
+export default function MyReview({ review, userRating }) {
   const [isVisible, setIsVisible] = useState(false);
 
   function handleClick() {
-    setIsVisible(true);
+    setIsVisible(!isVisible);
   }
 
   return (
-    <>
-      {isVisible && <Typography>{content}</Typography>}
-      <Button variant="outlined" size="small" onClick={handleClick}>
-        Zobraziť recenziu
-      </Button>
-    </>
+    <Box>
+      <Typography variant="h6">Moja recenzia</Typography>
+      <MyRating rating={userRating} />
+      {review === "" ? (
+        <Typography>Bez recenzie</Typography>
+      ) : (
+        <>
+          <Typography
+            sx={{
+              display: "-webkit-box",
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              WebkitLineClamp: !isVisible ? 3 : undefined,
+              textOverflow: !isVisible ? "ellipsis" : undefined
+            }}
+            dangerouslySetInnerHTML={{ __html: review }}
+          />
+          <Button
+            variant="text"
+            size="small"
+            onClick={handleClick}
+            startIcon={!isVisible ? <ExpandMore /> : <ExpandLess />}
+          >
+            Zobraziť {isVisible ? "menej" : "viac"}
+          </Button>
+        </>
+      )}
+    </Box>
   );
 }

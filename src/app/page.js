@@ -22,11 +22,10 @@ const books = goodreads.slice(0, 50).map((book) => {
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#7b1fa2"
+      main: "#00796b"
     },
     background: {
-      default: "rgb(242, 200, 206)",
-      paper: "rgba(255, 255, 255, 0.5)"
+      default: "#e0f2f1"
     }
   }
 });
@@ -57,7 +56,7 @@ export default function Home() {
 
         <Grid container rowSpacing={3} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {resultBooks.map((book) => (
-            <Grid key={book.Title} item xs={6}>
+            <Grid key={book.Title} item xs={4}>
               <Book book={book} />
             </Grid>
           ))}
