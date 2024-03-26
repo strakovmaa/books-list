@@ -1,13 +1,16 @@
 import { FormControlLabel, Switch } from "@mui/material";
+import { useContext } from "react";
+import { BookContext } from "../context/BookContext";
 
-export default function Filters({
-  applyRating,
-  handleRatingChange,
-  applyMyRating,
-  handleMyRatingChange,
-  applyUnread,
-  handleUnreadChange
-}) {
+export default function Filters() {
+  const {
+    applyRating,
+    handleRatingChange,
+    applyMyRating,
+    handleMyRatingChange,
+    applyUnread,
+    handleUnreadChange
+  } = useContext(BookContext);
   return (
     <>
       <FormControlLabel
