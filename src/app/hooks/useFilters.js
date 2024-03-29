@@ -24,7 +24,7 @@ export const useFilters = (books) => {
     return rating && myRating && unread;
   };
 
-  const resultBooks = books.filter(filterBook);
+  const resultBooks = (books || []).filter(filterBook);
   return {
     resultBooks,
     applyRating,

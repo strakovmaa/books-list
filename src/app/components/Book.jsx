@@ -14,7 +14,6 @@ import NewRating from "./NewRating";
 import Shelves from "./Shelves";
 
 export default function Book({ book }) {
-  console.log("book:", book);
   const [isUnread, setIsUnread] = useState(book.isUnread);
   const [showNewRating, setShowNewRating] = useState(false);
   const [userRating, setUserRating] = useState(book["My Rating"]);

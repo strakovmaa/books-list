@@ -1,17 +1,31 @@
-import { createContext } from "react";
-import { goodreads } from "../data/goodreads";
+import { createContext, useEffect, useState } from "react";
 import { useFilters } from "../hooks/useFilters";
 
 export const BookContext = createContext();
 
-const books = goodreads.slice(0, 100).map((book) => {
-  const isUnread =
-    book["Exclusive Shelf"] !== "read" &&
-    book["Exclusive Shelf"] !== "currently-reading";
-  return { ...book, isUnread };
-});
-
 export const BookProvider = ({ children }) => {
+  const [booksData, setBooksData] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const loadData = async () => {
+    const result = await fetch("/api/books");
+    const data = await result.json();
+    const books=data.map((book) => {
+      const isUnread =
+        book["Exclusive Shelf"] !== "read" &&
+        book["Exclusive Shelf"] !== "currently-reading";
+      return { ...book, isUnread };
+    });
+
+
+    setBooksData(books);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
   const {
     resultBooks,
     applyRating,
@@ -20,7 +34,7 @@ export const BookProvider = ({ children }) => {
     handleMyRatingChange,
     applyUnread,
     handleUnreadChange
-  } = useFilters(books);
+  } = useFilters(booksData);
 
   return (
     <BookContext.Provider
@@ -31,7 +45,8 @@ export const BookProvider = ({ children }) => {
         applyMyRating,
         handleMyRatingChange,
         applyUnread,
-        handleUnreadChange
+        handleUnreadChange,
+        isLoading
       }}
     >
       {children}

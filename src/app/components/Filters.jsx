@@ -1,4 +1,4 @@
-import { FormControlLabel, Switch } from "@mui/material";
+import { Box, FormControlLabel, Switch } from "@mui/material";
 import { useContext } from "react";
 import { BookContext } from "../context/BookContext";
 
@@ -12,7 +12,7 @@ export default function Filters() {
     handleUnreadChange
   } = useContext(BookContext);
   return (
-    <>
+    <Box mb={3}>
       <FormControlLabel
         control={<Switch checked={applyRating} onChange={handleRatingChange} />}
         label="Najlepšie hodnotené"
@@ -27,6 +27,6 @@ export default function Filters() {
         control={<Switch checked={applyUnread} onChange={handleUnreadChange} />}
         label="Neprečítané"
       />
-    </>
+    </Box>
   );
 }
