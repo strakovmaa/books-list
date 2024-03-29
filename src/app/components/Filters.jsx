@@ -12,7 +12,7 @@ export default function Filters() {
     handleUnreadChange
   } = useContext(BookContext);
   return (
-    <Box mb={3}>
+    <Box>
       <FormControlLabel
         control={<Switch checked={applyRating} onChange={handleRatingChange} />}
         label="Najlepšie hodnotené"
