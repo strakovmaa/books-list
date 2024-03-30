@@ -1,4 +1,4 @@
-import { Box, FormControlLabel, Switch } from "@mui/material";
+import { Box, FormControlLabel, Switch, TextField } from "@mui/material";
 import { useContext } from "react";
 import { BookContext } from "../context/BookContext";
 
@@ -9,10 +9,18 @@ export default function Filters() {
     applyMyRating,
     handleMyRatingChange,
     applyUnread,
-    handleUnreadChange
+    handleUnreadChange,
+    search,
+    handleSearchChange
   } = useContext(BookContext);
   return (
-    <Box>
+    <Box my={3}>
+      <TextField
+        id="outlined-controlled"
+        label="Vyhľadávať"
+        value={search}
+        onChange={handleSearchChange}
+      />
       <FormControlLabel
         control={<Switch checked={applyRating} onChange={handleRatingChange} />}
         label="Najlepšie hodnotené"

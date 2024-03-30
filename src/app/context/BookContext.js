@@ -33,7 +33,9 @@ export const BookProvider = ({ children }) => {
     applyMyRating,
     handleMyRatingChange,
     applyUnread,
-    handleUnreadChange
+    handleUnreadChange,
+    search,
+    handleSearchChange
   } = useFilters(booksData);
 
   return (
@@ -47,7 +49,9 @@ export const BookProvider = ({ children }) => {
         applyUnread,
         handleUnreadChange,
         isLoading,
-        setCount
+        setCount,
+        search,
+        handleSearchChange
       }}
     >
       {children}

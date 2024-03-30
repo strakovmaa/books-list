@@ -29,11 +29,7 @@ export default function Home() {
       <BookProvider>
         <CssBaseline />
         <Container maxWidth="lg">
-          <Stack
-            flexDirection="row"
-            justifyContent="space-between"
-            alignItems="center"
-          >
+          <Stack flexDirection="row" justifyContent="space-between">
             <Filters />
             <SelectAmount />
           </Stack>
