@@ -5,6 +5,7 @@ export const useFilters = (books) => {
   const [applyMyRating, setApplyMyRating] = useState(false);
   const [applyUnread, setApplyUnread] = useState(false);
   const [search, setSearch] = useState("");
+  const [author, setAuthor] = useState("");
 
   const handleRatingChange = (event) => {
     setApplyRating(event.target.value);
@@ -20,6 +21,10 @@ export const useFilters = (books) => {
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
+  };
+
+  const handleAuthorChange = (event) => {
+    setAuthor(event.target.value);
   };
 
   const getSearch = (book) => {
@@ -44,8 +49,9 @@ export const useFilters = (books) => {
     const myRating = applyMyRating ? book["My Rating"] > 0 : true;
     const unread = applyUnread ? book.isUnread : true;
     const searched = search.length > 0 ? getSearch(book) : true;
+    const selectAuthor = author.length > 0 ? author === book.Author : true;
     // ak sú všetky 4 true, knižka sa zobrazí
-    return rating && myRating && unread && searched;
+    return selectAuthor && rating && myRating && unread && searched;
   };
 
   const resultBooks = (books || []).filter(filterBook);
@@ -58,6 +64,8 @@ export const useFilters = (books) => {
     applyUnread,
     handleUnreadChange,
     search,
-    handleSearchChange
+    handleSearchChange,
+    author,
+    handleAuthorChange
   };
 };

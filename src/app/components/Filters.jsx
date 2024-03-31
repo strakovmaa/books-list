@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useContext } from "react";
 import { BookContext } from "../context/BookContext";
+import SelectAuthors from "./SelectAuthors";
 
 export default function Filters() {
   const {
@@ -63,6 +64,7 @@ export default function Filters() {
         }
         label="Neprečítané"
       />
+      <SelectAuthors />
     </Box>
   );
 }
