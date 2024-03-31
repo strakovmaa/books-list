@@ -1,4 +1,13 @@
-import { Box, FormControlLabel, Switch, TextField } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  Switch,
+  TextField
+} from "@mui/material";
 import { useContext } from "react";
 import { BookContext } from "../context/BookContext";
 
@@ -13,6 +22,7 @@ export default function Filters() {
     search,
     handleSearchChange
   } = useContext(BookContext);
+
   return (
     <Box my={3}>
       <TextField
@@ -21,10 +31,26 @@ export default function Filters() {
         value={search}
         onChange={handleSearchChange}
       />
-      <FormControlLabel
-        control={<Switch checked={applyRating} onChange={handleRatingChange} />}
-        label="Najlepšie hodnotené"
-      />
+      <FormControl>
+        <RadioGroup value={applyRating} onChange={handleRatingChange}>
+          <FormControlLabel
+            value="rating"
+            control={<Radio />}
+            label="Všetky hodnotené"
+          />
+          <FormControlLabel
+            value="bestRating"
+            control={<Radio />}
+            label="Najlepšie hodnotené"
+          />
+          <FormControlLabel
+            value="worstRating"
+            control={<Radio />}
+            label="Najhoršie hodnotené"
+          />
+        </RadioGroup>
+      </FormControl>
+
       <FormControlLabel
         control={
           <Switch checked={applyMyRating} onChange={handleMyRatingChange} />
@@ -32,7 +58,9 @@ export default function Filters() {
         label="Moje hodnotené"
       />
       <FormControlLabel
-        control={<Switch checked={applyUnread} onChange={handleUnreadChange} />}
+        control={
+          <Checkbox checked={applyUnread} onChange={handleUnreadChange} />
+        }
         label="Neprečítané"
       />
     </Box>

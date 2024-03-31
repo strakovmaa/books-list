@@ -1,13 +1,13 @@
 import { useState } from "react";
 
 export const useFilters = (books) => {
-  const [applyRating, setApplyRating] = useState(false);
+  const [applyRating, setApplyRating] = useState("rating");
   const [applyMyRating, setApplyMyRating] = useState(false);
   const [applyUnread, setApplyUnread] = useState(false);
   const [search, setSearch] = useState("");
 
   const handleRatingChange = (event) => {
-    setApplyRating(event.target.checked);
+    setApplyRating(event.target.value);
   };
 
   const handleMyRatingChange = (event) => {
@@ -28,11 +28,23 @@ export const useFilters = (books) => {
     return result !== -1;
   };
 
+  const getRating = (book) => {
+    if (applyRating === "bestRating") {
+      return book["Average Rating"] > 4.5;
+    }
+    if (applyRating === "worstRating") {
+      return book["Average Rating"] < 4;
+    }
+
+    return true;
+  };
+
   const filterBook = (book) => {
-    const rating = applyRating ? book["Average Rating"] > 4.5 : true;
+    const rating = getRating(book);
     const myRating = applyMyRating ? book["My Rating"] > 0 : true;
     const unread = applyUnread ? book.isUnread : true;
     const searched = search.length > 0 ? getSearch(book) : true;
+    // ak sú všetky 4 true, knižka sa zobrazí
     return rating && myRating && unread && searched;
   };
 
