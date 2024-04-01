@@ -36,7 +36,7 @@ export const BookProvider = ({ children }) => {
     handleUnreadChange,
     search,
     handleSearchChange,
-    author,
+    authors,
     handleAuthorChange
   } = useFilters(booksData);
 
@@ -54,7 +54,7 @@ export const BookProvider = ({ children }) => {
         setCount,
         search,
         handleSearchChange,
-        author,
+        authors,
         handleAuthorChange,
         booksData
       }}
