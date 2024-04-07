@@ -9,7 +9,7 @@ export default function AutocompleteAuthors() {
   const uniqueAuthors = [...new Set(allAuthors)];
 
   return (
-    <Stack spacing={3} sx={{ width: 300 }}>
+    <Stack spacing={3}>
       <Autocomplete
         multiple
         options={uniqueAuthors}
@@ -19,6 +19,7 @@ export default function AutocompleteAuthors() {
         renderInput={(params) => (
           <TextField
             {...params}
+            fullWidth
             variant="outlined"
             label="Vyhľadávanie podľa autorov"
           />

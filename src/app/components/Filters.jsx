@@ -3,8 +3,10 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
+  Grid,
   Radio,
   RadioGroup,
+  Stack,
   Switch,
   TextField
 } from "@mui/material";
@@ -26,45 +28,62 @@ export default function Filters() {
 
   return (
     <Box my={3}>
-      <TextField
-        id="outlined-controlled"
-        label="Vyhľadávať"
-        value={search}
-        onChange={handleSearchChange}
-      />
-      <FormControl>
-        <RadioGroup value={applyRating} onChange={handleRatingChange}>
-          <FormControlLabel
-            value="rating"
-            control={<Radio />}
-            label="Všetky hodnotené"
-          />
-          <FormControlLabel
-            value="bestRating"
-            control={<Radio />}
-            label="Najlepšie hodnotené"
-          />
-          <FormControlLabel
-            value="worstRating"
-            control={<Radio />}
-            label="Najhoršie hodnotené"
-          />
-        </RadioGroup>
-      </FormControl>
+      <Grid container columnSpacing={{ xs: 1, md: 6 }}>
+        <Grid item xs={12} md={7}>
+          <Stack rowGap={2}>
+            <AutocompleteAuthors />
+            <TextField
+              fullWidth
+              id="outlined-controlled"
+              label="Vyhľadávať"
+              value={search}
+              onChange={handleSearchChange}
+            />
+          </Stack>
+        </Grid>
 
-      <FormControlLabel
-        control={
-          <Switch checked={applyMyRating} onChange={handleMyRatingChange} />
-        }
-        label="Moje hodnotené"
-      />
-      <FormControlLabel
-        control={
-          <Checkbox checked={applyUnread} onChange={handleUnreadChange} />
-        }
-        label="Neprečítané"
-      />
-      <AutocompleteAuthors />
+        <Grid item xs={12} md={2.5}>
+          <FormControl>
+            <RadioGroup value={applyRating} onChange={handleRatingChange}>
+              <FormControlLabel
+                value="rating"
+                control={<Radio />}
+                label="Všetky hodnotené"
+              />
+              <FormControlLabel
+                value="bestRating"
+                control={<Radio />}
+                label="Najlepšie hodnotené"
+              />
+              <FormControlLabel
+                value="worstRating"
+                control={<Radio />}
+                label="Najhoršie hodnotené"
+              />
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12} md={2.5}>
+          <Stack rowGap={1}>
+            {/* <SelectCount /> */}
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={applyMyRating}
+                  onChange={handleMyRatingChange}
+                />
+              }
+              label="Moje hodnotené"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox checked={applyUnread} onChange={handleUnreadChange} />
+              }
+              label="Neprečítané"
+            />
+          </Stack>
+        </Grid>
+      </Grid>
     </Box>
   );
 }

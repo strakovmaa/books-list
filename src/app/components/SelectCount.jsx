@@ -1,4 +1,4 @@
-import { MenuItem, Stack, TextField } from "@mui/material";
+import { MenuItem, TextField } from "@mui/material";
 import { useContext } from "react";
 import { BookContext } from "../context/BookContext";
 
@@ -26,19 +26,18 @@ export default function SelectCount({}) {
     setCount(event.target.value);
   }
   return (
-    <Stack my={3} width={150}>
-      <TextField
-        select
-        label="Na stránke"
-        defaultValue={defaultOption}
-        onChange={handleChange}
-      >
-        {countOptions.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-    </Stack>
+    <TextField
+      size="small"
+      select
+      label="Na stránke"
+      defaultValue={defaultOption}
+      onChange={handleChange}
+    >
+      {countOptions.map((option) => (
+        <MenuItem key={option.value} value={option.value}>
+          {option.label}
+        </MenuItem>
+      ))}
+    </TextField>
   );
 }

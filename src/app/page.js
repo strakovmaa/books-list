@@ -3,13 +3,11 @@
 import {
   Container,
   CssBaseline,
-  Stack,
   ThemeProvider,
   createTheme
 } from "@mui/material";
 import BookList from "./components/BookList";
 import Filters from "./components/Filters";
-import SelectAmount from "./components/SelectCount";
 import { BookProvider } from "./context/BookContext";
 
 const theme = createTheme({
@@ -29,10 +27,7 @@ export default function Home() {
       <BookProvider>
         <CssBaseline />
         <Container maxWidth="lg">
-          <Stack flexDirection="row" justifyContent="space-between">
-            <Filters />
-            <SelectAmount />
-          </Stack>
+          <Filters />
 
           <BookList />
         </Container>
