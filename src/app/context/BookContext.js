@@ -26,36 +26,14 @@ export const BookProvider = ({ children }) => {
     loadData();
   }, [count]);
 
-  const {
-    resultBooks,
-    applyRating,
-    handleRatingChange,
-    applyMyRating,
-    handleMyRatingChange,
-    applyUnread,
-    handleUnreadChange,
-    search,
-    handleSearchChange,
-    authors,
-    handleAuthorChange
-  } = useFilters(booksData);
+  const { resultBooks } = useFilters(booksData);
 
   return (
     <BookContext.Provider
       value={{
         resultBooks,
-        applyRating,
-        handleRatingChange,
-        applyMyRating,
-        handleMyRatingChange,
-        applyUnread,
-        handleUnreadChange,
         isLoading,
         setCount,
-        search,
-        handleSearchChange,
-        authors,
-        handleAuthorChange,
         booksData
       }}
     >
