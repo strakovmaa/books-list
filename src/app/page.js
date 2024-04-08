@@ -9,6 +9,8 @@ import {
 import { FormProvider, useForm } from "react-hook-form";
 import BookList from "./components/BookList";
 import Filters from "./components/Filters";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 import { BookProvider } from "./context/BookContext";
 
 const theme = createTheme({
@@ -30,11 +32,12 @@ export default function Home() {
       <FormProvider {...methods}>
         <BookProvider>
           <CssBaseline />
+          <Header />
           <Container maxWidth="lg">
             <Filters />
-
             <BookList />
           </Container>
+          <Footer />
         </BookProvider>
       </FormProvider>
     </ThemeProvider>
