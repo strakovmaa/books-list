@@ -1,4 +1,4 @@
-import { goodreads } from "@/app/data/goodreads";
+import { goodreads } from "@/data/goodreads";
 
 // const sleep = (ms = 0) => new Promise((resolve) => setTimeout(resolve, ms));
 
