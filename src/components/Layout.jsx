@@ -1,8 +1,10 @@
 "use client";
 
 import {
+  Box,
   Container,
   CssBaseline,
+  Stack,
   ThemeProvider,
   createTheme
 } from "@mui/material";
@@ -24,9 +26,13 @@ export default function Layout({ children }) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header />
-      <Container maxWidth="lg">{children}</Container>
-      <Footer />
+      <Stack sx={{ minHeight: "100vh" }}>
+        <Header />
+        <Box flexGrow={1}>
+          <Container maxWidth="lg">{children}</Container>
+        </Box>
+        <Footer />
+      </Stack>
     </ThemeProvider>
   );
 }
