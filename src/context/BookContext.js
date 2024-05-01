@@ -26,6 +26,17 @@ export const BookProvider = ({ children }) => {
     loadData();
   }, [count]);
 
+  const handleReadBook = (id, newRating) => {
+    setBooksData((prev) =>
+      prev.map((book) => {
+        if (id === book["Book Id"]) {
+          return { ...book, isUnread: false, "My Rating": newRating };
+        }
+        return book;
+      })
+    );
+  };
+
   const { resultBooks } = useFilters(booksData);
 
   return (
@@ -34,6 +45,7 @@ export const BookProvider = ({ children }) => {
         resultBooks,
         isLoading,
         setCount,
+        handleReadBook,
         booksData
       }}
     >

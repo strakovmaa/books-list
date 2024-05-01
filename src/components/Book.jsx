@@ -1,27 +1,38 @@
+import { BookContext } from "@/context/BookContext";
 import { Warning } from "@mui/icons-material";
 import {
   Button,
   Card,
   CardActions,
   CardContent,
+  Dialog,
+  DialogContent,
+  DialogTitle,
   Stack,
   Typography
 } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import MyRating from "./MyRating";
 import MyReview from "./MyReview";
 import NewRating from "./NewRating";
 import Shelves from "./Shelves";
 
 export default function Book({ book }) {
-  const [isUnread, setIsUnread] = useState(book.isUnread);
+  const { handleReadBook } = useContext(BookContext);
   const [showNewRating, setShowNewRating] = useState(false);
-  const [userRating, setUserRating] = useState(book["My Rating"]);
 
-  function handleClick() {
-    setIsUnread(false);
+  const handleOpen = () => {
     setShowNewRating(true);
-  }
+  };
+  const handleClose = () => {
+    setShowNewRating(false);
+  };
+
+  const handleUserRating = (newRating) => {
+    handleReadBook(book["Book Id"], newRating);
+    handleClose();
+  };
+
   return (
     <Card
       variant="outlined"
@@ -29,7 +40,7 @@ export default function Book({ book }) {
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        borderColor: isUnread ? theme.palette.primary.main : undefined
+        borderColor: book.isUnread ? theme.palette.primary.main : undefined
       })}
     >
       <CardContent sx={{ flexGrow: 1 }}>
@@ -44,25 +55,37 @@ export default function Book({ book }) {
           <MyRating rating={book["Average Rating"]} />
 
           <Shelves shelves={book.Bookshelves} />
-          <MyReview review={book["My Review"]} userRating={userRating} />
+          <MyReview review={book["My Review"]} userRating={book["My Rating"]} />
         </Stack>
       </CardContent>
 
-      {isUnread && (
+      {book.isUnread && (
         <CardActions>
           <Button
             fullWidth
             variant="outlined"
-            onClick={handleClick}
+            onClick={handleOpen}
             startIcon={book["Average Rating"] > 4 ? <Warning /> : undefined}
           >
             Prečítať
           </Button>
         </CardActions>
       )}
-      {showNewRating && userRating === 0 && (
-        <NewRating setUserRating={setUserRating} />
-      )}
+
+      <Dialog
+        open={showNewRating}
+        onClose={handleClose}
+        fullWidth
+        maxWidth="sm"
+      >
+        <DialogTitle>{book.Title}</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1" gutterBottom>
+            Ohodnoť ma
+          </Typography>
+          <NewRating handleUserRating={handleUserRating} />
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 }

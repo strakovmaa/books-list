@@ -1,12 +1,4 @@
-import {
-  AppBar,
-  Container,
-  Link,
-  Stack,
-  Toolbar,
-  Typography
-} from "@mui/material";
-import NextLink from "next/link";
+import { AppBar, Container, Stack, Toolbar, Typography } from "@mui/material";
 
 export default function Header() {
   return (
@@ -17,13 +9,6 @@ export default function Header() {
             <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
               Maťkin reading list
             </Typography>
-
-            <Link color="inherit" href="/" component={NextLink}>
-              Hlavná stránka
-            </Link>
-            <Link color="inherit" href="/best" component={NextLink}>
-              Najlepšie knihy
-            </Link>
           </Stack>
         </Container>
       </Toolbar>
