@@ -2,6 +2,7 @@ import {
   Alert,
   CircularProgress,
   Grid,
+  Pagination,
   Stack,
   Typography
 } from "@mui/material";
@@ -10,7 +11,8 @@ import { BookContext } from "../context/BookContext";
 import Book from "./Book";
 
 export default function BookList() {
-  const { resultBooks, isLoading } = useContext(BookContext);
+  const { resultBooks, isLoading, paginationProps, filteredBooks } =
+    useContext(BookContext);
 
   if (isLoading) {
     return (
@@ -28,7 +30,7 @@ export default function BookList() {
         </Alert>
       ) : (
         <>
-          <Typography my={1}>Nájdených {resultBooks.length} kníh</Typography>
+          <Typography my={1}>Nájdených {filteredBooks.length} kníh</Typography>
           <Grid
             container
             rowSpacing={3}
@@ -40,6 +42,9 @@ export default function BookList() {
               </Grid>
             ))}
           </Grid>
+          <Stack spacing={2} mt={4} alignItems="center">
+            <Pagination {...paginationProps} />
+          </Stack>
         </>
       )}
     </>

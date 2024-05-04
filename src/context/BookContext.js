@@ -1,7 +1,8 @@
+import { usePagination } from "@/hooks/usePagination";
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import { defaultOption } from "../components/SelectCount";
 import { useFilters } from "../hooks/useFilters";
+import { defaultOption } from "@/components/SelectCount";
 
 export const BookContext = createContext();
 
@@ -42,7 +43,8 @@ export const BookProvider = ({ children }) => {
     );
   };
 
-  const { resultBooks } = useFilters(booksData);
+  const { filteredBooks } = useFilters(booksData);
+  const { resultBooks, paginationProps } = usePagination(filteredBooks);
 
   return (
     <BookContext.Provider
@@ -51,7 +53,9 @@ export const BookProvider = ({ children }) => {
         isLoading,
         setCount,
         handleReadBook,
-        booksData
+        booksData,
+        paginationProps,
+        filteredBooks
       }}
     >
       {children}
