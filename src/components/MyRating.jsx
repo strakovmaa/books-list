@@ -2,7 +2,7 @@ import { Rating, Stack, Typography } from "@mui/material";
 
 export default function MyRating({ rating }) {
   return (
-    <Stack direction={"row"} alignItems={"center"} gap={1}>
+    <Stack direction={"row"} alignItems={"center"} gap={1} mb={1}>
       {rating === 0 ? (
         <Typography>NEHODNOTENÉ</Typography>
       ) : (

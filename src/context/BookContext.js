@@ -26,11 +26,16 @@ export const BookProvider = ({ children }) => {
     loadData();
   }, [count]);
 
-  const handleReadBook = (id, newRating) => {
+  const handleReadBook = (id, newRating, newReview) => {
     setBooksData((prev) =>
       prev.map((book) => {
         if (id === book["Book Id"]) {
-          return { ...book, isUnread: false, "My Rating": newRating };
+          return {
+            ...book,
+            isUnread: false,
+            "My Rating": newRating,
+            "My Review": newReview
+          };
         }
         return book;
       })

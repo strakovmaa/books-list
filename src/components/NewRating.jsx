@@ -1,21 +1,18 @@
 import { Rating, Stack, Typography } from "@mui/material";
-import { useState } from "react";
 
-export default function NewRating({ handleUserRating }) {
-  const [value, setValue] = useState();
+export default function NewRating({ newRatingValue, setNewRatingValue }) {
   return (
     <Stack direction={"row"} alignItems={"center"} gap={1}>
       <Rating
         size="large"
         precision={0.5}
-        value={value || 0}
+        value={newRatingValue || 0}
         onChange={(event, newValue) => {
-          setValue(newValue);
-          handleUserRating(newValue);
+          setNewRatingValue(newValue);
         }}
       />
       <Typography variant="body2" color={"text.secondary"}>
-        {value}
+        {newRatingValue}
       </Typography>
     </Stack>
   );

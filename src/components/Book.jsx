@@ -1,24 +1,19 @@
-import { BookContext } from "@/context/BookContext";
 import { Warning } from "@mui/icons-material";
 import {
   Button,
   Card,
   CardActions,
   CardContent,
-  Dialog,
-  DialogContent,
-  DialogTitle,
   Stack,
   Typography
 } from "@mui/material";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import MyRating from "./MyRating";
 import MyReview from "./MyReview";
-import NewRating from "./NewRating";
+import ReviewDialog from "./ReviewDialog";
 import Shelves from "./Shelves";
 
 export default function Book({ book }) {
-  const { handleReadBook } = useContext(BookContext);
   const [showNewRating, setShowNewRating] = useState(false);
 
   const handleOpen = () => {
@@ -26,11 +21,6 @@ export default function Book({ book }) {
   };
   const handleClose = () => {
     setShowNewRating(false);
-  };
-
-  const handleUserRating = (newRating) => {
-    handleReadBook(book["Book Id"], newRating);
-    handleClose();
   };
 
   return (
@@ -60,32 +50,24 @@ export default function Book({ book }) {
       </CardContent>
 
       {book.isUnread && (
-        <CardActions>
-          <Button
-            fullWidth
-            variant="outlined"
-            onClick={handleOpen}
-            startIcon={book["Average Rating"] > 4 ? <Warning /> : undefined}
-          >
-            Prečítať
-          </Button>
-        </CardActions>
+        <>
+          <CardActions>
+            <Button
+              fullWidth
+              variant="outlined"
+              onClick={handleOpen}
+              startIcon={book["Average Rating"] > 4 ? <Warning /> : undefined}
+            >
+              Prečítať
+            </Button>
+          </CardActions>
+          <ReviewDialog
+            open={showNewRating}
+            onClose={handleClose}
+            book={book}
+          />
+        </>
       )}
-
-      <Dialog
-        open={showNewRating}
-        onClose={handleClose}
-        fullWidth
-        maxWidth="sm"
-      >
-        <DialogTitle>{book.Title}</DialogTitle>
-        <DialogContent>
-          <Typography variant="body1" gutterBottom>
-            Ohodnoť ma
-          </Typography>
-          <NewRating handleUserRating={handleUserRating} />
-        </DialogContent>
-      </Dialog>
     </Card>
   );
 }
