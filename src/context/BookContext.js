@@ -1,31 +1,42 @@
-import { usePagination } from "@/hooks/usePagination";
+import { defaultOption } from "@/components/SelectCount";
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { useFilters } from "../hooks/useFilters";
-import { defaultOption } from "@/components/SelectCount";
 
 export const BookContext = createContext();
 
 export const BookProvider = ({ children }) => {
   const [booksData, setBooksData] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [count, setCount] = useState(defaultOption);
+  const [itemsOnPage, setItemsOnPage] = useState(defaultOption);
+  const [page, setPage] = useState(1);
+  const [pageCount, setPageCount] = useState();
+  const [totalCount, setTotalCount] = useState();
+
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
 
   useEffect(() => {
     const loadData = async () => {
-      const result = await axios.get(`/api/books?count=${count}`);
-      const books = result.data.map((book) => {
+      const result = await axios.get(
+        `/api/books?itemsOnPage=${itemsOnPage}&page=${page}`
+      );
+
+      const books = result.data.books.map((book) => {
         const isUnread =
           book["Exclusive Shelf"] !== "read" &&
           book["Exclusive Shelf"] !== "currently-reading";
         return { ...book, isUnread };
       });
+      setTotalCount(result.data.totalCount);
+      setPageCount(result.data.pageCount);
       setBooksData(books);
       setIsLoading(false);
     };
-
+    setIsLoading(true);
     loadData();
-  }, [count]);
+  }, [itemsOnPage, page]);
 
   const handleReadBook = (id, newRating, newReview) => {
     setBooksData((prev) =>
@@ -43,19 +54,23 @@ export const BookProvider = ({ children }) => {
     );
   };
 
-  const { filteredBooks } = useFilters(booksData);
-  const { resultBooks, paginationProps } = usePagination(filteredBooks);
+  const { resultBooks } = useFilters(booksData);
+  const paginationProps = {
+    count: pageCount,
+    page,
+    onChange: handlePageChange
+  };
 
   return (
     <BookContext.Provider
       value={{
         resultBooks,
         isLoading,
-        setCount,
+        setItemsOnPage,
         handleReadBook,
         booksData,
         paginationProps,
-        filteredBooks
+        totalCount
       }}
     >
       {children}

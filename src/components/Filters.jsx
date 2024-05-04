@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 import AutocompleteAuthors from "./AutocompleteAuthors";
+import SelectCount from "./SelectCount";
 
 export default function Filters() {
   const { control } = useFormContext();
@@ -61,7 +62,7 @@ export default function Filters() {
           </Grid>
           <Grid item xs={12} md={2.5}>
             <Stack rowGap={1}>
-              {/* <SelectCount /> */}
+              <SelectCount />
 
               <Controller
                 name="rated"

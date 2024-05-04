@@ -4,26 +4,26 @@ import { BookContext } from "../context/BookContext";
 
 const countOptions = [
   {
-    value: 30,
-    label: "30"
+    value: 15,
+    label: "15"
   },
   {
-    value: 50,
-    label: "50"
+    value: 60,
+    label: "60"
   },
   {
-    value: 100,
-    label: "100"
+    value: 90,
+    label: "90"
   }
 ];
 
 export const defaultOption = countOptions[0].value;
 
 export default function SelectCount({}) {
-  const { setCount } = useContext(BookContext);
+  const { setItemsOnPage } = useContext(BookContext);
 
   function handleChange(event) {
-    setCount(event.target.value);
+    setItemsOnPage(event.target.value);
   }
   return (
     <TextField

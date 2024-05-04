@@ -11,7 +11,7 @@ import { BookContext } from "../context/BookContext";
 import Book from "./Book";
 
 export default function BookList() {
-  const { resultBooks, isLoading, paginationProps, filteredBooks } =
+  const { resultBooks, isLoading, paginationProps, totalCount } =
     useContext(BookContext);
 
   if (isLoading) {
@@ -30,7 +30,7 @@ export default function BookList() {
         </Alert>
       ) : (
         <>
-          <Typography my={1}>Nájdených {filteredBooks.length} kníh</Typography>
+          <Typography my={1}>Nájdených {totalCount} kníh</Typography>
           <Grid
             container
             rowSpacing={3}

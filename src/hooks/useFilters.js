@@ -36,8 +36,8 @@ export const useFilters = (books) => {
     return selectAuthor && rating && myRating && unread && searched;
   };
 
-  const filteredBooks = (books || []).filter(filterBook);
+  const resultBooks = (books || []).filter(filterBook);
   return {
-    filteredBooks
+    resultBooks
   };
 };

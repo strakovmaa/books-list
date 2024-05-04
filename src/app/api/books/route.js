@@ -4,8 +4,21 @@ import { goodreads } from "@/data/goodreads";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
-  const count = searchParams.get("count");
-  const books = goodreads.slice(0, count);
+  const itemsOnPage = parseInt(searchParams.get("itemsOnPage") || 30);
+  const page = parseInt(searchParams.get("page") || 1);
+  const totalCount = goodreads.length;
+  const pageCount = Math.ceil(totalCount / itemsOnPage);
+
+  const startIndex = itemsOnPage * (page - 1);
+  const books = (goodreads || []).slice(startIndex, startIndex + itemsOnPage);
   // await sleep(1000);
-  return new Response(JSON.stringify(books));
+
+  const result = {
+    books,
+    totalCount,
+    page,
+    pageCount
+  };
+
+  return new Response(JSON.stringify(result));
 }
