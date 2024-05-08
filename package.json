@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "ts": "npx tsc -w"
   },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
@@ -22,6 +23,10 @@
     "react-hook-form": "^7.51.2"
   },
   "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
     "eslint": "^8.52.0",
     "eslint-config-next": "14.1.0",
     "eslint-plugin-prettier": "^5.1.2",
