@@ -1,9 +1,15 @@
+import { Book } from "@/app/types";
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 import MyRating from "./MyRating";
 
-export default function MyReview({ review, userRating }) {
+type Props = {
+  review: Book["My Review"];
+  userRating: Book["My Rating"];
+};
+
+export default function MyReview({ review, userRating }: Props) {
   const [isVisible, setIsVisible] = useState(false);
 
   function handleClick() {

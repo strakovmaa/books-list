@@ -12,8 +12,13 @@ import MyRating from "./MyRating";
 import MyReview from "./MyReview";
 import ReviewDialog from "./ReviewDialog";
 import Shelves from "./Shelves";
+import { Book } from "@/app/types";
 
-export default function Book({ book }) {
+type Props = {
+  book: Book;
+};
+
+export default function BookCard({ book }: Props) {
   const [showNewRating, setShowNewRating] = useState(false);
 
   const handleOpen = () => {

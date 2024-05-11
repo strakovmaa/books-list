@@ -1,3 +1,4 @@
+import { Book } from "@/app/types";
 import { BookContext } from "@/context/BookContext";
 import {
   Button,
@@ -8,20 +9,32 @@ import {
   TextField,
   Typography
 } from "@mui/material";
-import { useContext, useState } from "react";
+import { ChangeEventHandler, useContext, useState } from "react";
 import NewRating from "./NewRating";
 
-export default function ReviewDialog({ open, book, onClose }) {
+type Props = {
+  open: boolean;
+  book: Book;
+  onClose: () => void;
+};
+
+export default function ReviewDialog({ open, book, onClose }: Props) {
   const { handleReadBook } = useContext(BookContext);
 
   const [newReviewValue, setNewReviewValue] = useState("");
-  const [newRatingValue, setNewRatingValue] = useState();
+  const [newRatingValue, setNewRatingValue] = useState<number>();
 
-  const handleNewReview = (event) => {
+  const handleNewReview: ChangeEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  > = (event) => {
     setNewReviewValue(event.target.value);
   };
 
   const handleUserRating = () => {
+    if (newRatingValue === undefined) {
+      return;
+    }
+
     handleReadBook(book["Book Id"], newRatingValue, newReviewValue);
     onClose();
   };

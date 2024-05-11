@@ -1,6 +1,11 @@
+import { Book } from "@/app/types";
 import { Rating, Stack, Typography } from "@mui/material";
 
-export default function MyRating({ rating }) {
+type Props = {
+  rating: Book["Average Rating"];
+};
+
+export default function MyRating({ rating }: Props) {
   return (
     <Stack direction={"row"} alignItems={"center"} gap={1} mb={1}>
       {rating === 0 ? (
