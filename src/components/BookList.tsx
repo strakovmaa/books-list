@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { useContext } from "react";
 import { BookContext } from "../context/BookContext";
-import Book from "./Book";
+import Book from "./BookCard";
 
 export default function BookList() {
   const { resultBooks, isLoading, paginationProps, totalCount } =

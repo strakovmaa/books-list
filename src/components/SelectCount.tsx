@@ -1,5 +1,5 @@
 import { MenuItem, TextField } from "@mui/material";
-import { useContext } from "react";
+import { ChangeEventHandler, useContext } from "react";
 import { BookContext } from "../context/BookContext";
 
 const countOptions = [
@@ -22,9 +22,11 @@ export const defaultOption = countOptions[0].value;
 export default function SelectCount({}) {
   const { setItemsOnPage } = useContext(BookContext);
 
-  function handleChange(event) {
-    setItemsOnPage(event.target.value);
-  }
+  const handleChange: ChangeEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  > = (event) => {
+    setItemsOnPage(parseInt(event.target.value));
+  };
   return (
     <TextField
       size="small"

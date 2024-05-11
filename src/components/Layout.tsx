@@ -1,10 +1,15 @@
 "use client";
 
 import { Box, Container, Stack } from "@mui/material";
+import { ReactNode } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 
-export default function Layout({ children }) {
+type Props = {
+  children: ReactNode;
+};
+
+export default function Layout({ children }: Props) {
   return (
     <Stack sx={{ minHeight: "100vh" }}>
       <Header />

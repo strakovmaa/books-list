@@ -1,3 +1,5 @@
+export type BookSource = (typeof goodreads)[number];
+
 export const goodreads = [
   {
     "Book Id": 205032495,
