@@ -9,7 +9,7 @@ This app showcases my own Goodreads reading list that includes books I read with
 
 ## Built With
 
-- [Next.js](https://nextjs.org/) + JavaScript
+- [Next.js](https://nextjs.org/) + TypeScript
 - [Material-UI](https://material-ui.com/)
 - [Axios](https://github.com/axios/axios)
 - [React hook form](https://react-hook-form.com/)

@@ -5,9 +5,10 @@ import Filters from "@/components/Filters";
 import Layout from "@/components/Layout";
 import { BookProvider } from "@/context/BookContext";
 import { FormProvider, useForm } from "react-hook-form";
+import { FormValue } from "./types";
 
 export default function Home() {
-  const methods = useForm();
+  const methods = useForm<FormValue>();
 
   return (
     <Layout>

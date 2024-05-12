@@ -10,3 +10,11 @@ export type BooksApiResult = {
   page: number;
   pageCount: number;
 };
+
+export type FormValue = {
+  search: string;
+  haventRead: boolean;
+  rated: boolean;
+  applyRating: "allRating" | "bestRating" | "worstRating";
+  authors: string[];
+};

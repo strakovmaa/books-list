@@ -12,9 +12,10 @@ import {
 import { Controller, useFormContext } from "react-hook-form";
 import AutocompleteAuthors from "./AutocompleteAuthors";
 import SelectCount from "./SelectCount";
+import { FormValue } from "@/app/types";
 
 export default function Filters() {
-  const { control } = useFormContext();
+  const { control } = useFormContext<FormValue>();
   return (
     <Box my={3}>
       <form>
@@ -81,7 +82,7 @@ export default function Filters() {
               />
 
               <Controller
-                name="unread"
+                name="haventRead"
                 control={control}
                 render={({ field }) => (
                   <FormControlLabel
