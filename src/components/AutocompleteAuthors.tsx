@@ -2,9 +2,10 @@ import { Autocomplete, Box, TextField } from "@mui/material";
 import { useContext } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { BookContext } from "../context/BookContext";
+import { FormValue } from "@/app/types";
 
 export default function AutocompleteAuthors() {
-  const { control } = useFormContext();
+  const { control } = useFormContext<FormValue>();
   const { booksData } = useContext(BookContext);
 
   const allAuthors = (booksData || []).map((book) => book.Author);
