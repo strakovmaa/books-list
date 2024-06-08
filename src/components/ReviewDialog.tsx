@@ -35,13 +35,13 @@ export default function ReviewDialog({ open, book, onClose }: Props) {
       return;
     }
 
-    handleReadBook(book["Book Id"], newRatingValue, newReviewValue);
+    handleReadBook(book.id, newRatingValue, newReviewValue);
     onClose();
   };
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
-      <DialogTitle>{book.Title}</DialogTitle>
+      <DialogTitle>{book.title}</DialogTitle>
 
       <DialogContent>
         <Stack rowGap={2}>

@@ -8,7 +8,7 @@ export default function AutocompleteAuthors() {
   const { control } = useFormContext<FormValue>();
   const { booksData } = useContext(BookContext);
 
-  const allAuthors = (booksData || []).map((book) => book.Author);
+  const allAuthors = (booksData || []).map((book) => book.author);
   const uniqueAuthors = [...new Set(allAuthors)];
 
   return (

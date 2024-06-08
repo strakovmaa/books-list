@@ -40,17 +40,17 @@ export default function BookCard({ book }: Props) {
     >
       <CardContent sx={{ flexGrow: 1 }}>
         <Typography variant="h5" gutterBottom>
-          {book.Title}
+          {book.title}
         </Typography>
         <Typography variant="h6" gutterBottom>
-          {book.Author}, {book["Original Publication Year"]}
+          {book.author}, {book.year}
         </Typography>
 
         <Stack gap={2}>
-          <MyRating rating={book["Average Rating"]} />
+          <MyRating rating={book.averageRating} />
 
-          <Shelves shelves={book.Bookshelves} />
-          <MyReview review={book["My Review"]} userRating={book["My Rating"]} />
+          <Shelves shelves={book.bookshelves} />
+          <MyReview review={book.myReview} userRating={book.myRating} />
         </Stack>
       </CardContent>
 
@@ -61,7 +61,7 @@ export default function BookCard({ book }: Props) {
               fullWidth
               variant="outlined"
               onClick={handleOpen}
-              startIcon={book["Average Rating"] > 4 ? <Warning /> : undefined}
+              startIcon={book.averageRating > 4 ? <Warning /> : undefined}
             >
               Prečítať
             </Button>

@@ -3,7 +3,7 @@ import { KeyboardArrowRight } from "@mui/icons-material";
 import { Stack, Typography } from "@mui/material";
 
 type Props = {
-  shelves: Book["Bookshelves"];
+  shelves: Book["bookshelves"];
 };
 
 export default function Shelves({ shelves }: Props) {

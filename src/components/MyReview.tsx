@@ -5,8 +5,8 @@ import { useState } from "react";
 import MyRating from "./MyRating";
 
 type Props = {
-  review: Book["My Review"];
-  userRating: Book["My Rating"];
+  review: Book["myReview"];
+  userRating: Book["myRating"];
 };
 
 export default function MyReview({ review, userRating }: Props) {

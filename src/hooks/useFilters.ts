@@ -11,19 +11,17 @@ export const useFilters = (books: Book[] | undefined) => {
   const authors = watch("authors");
 
   const getSearch = (book: Book) => {
-    const stringTitle =
-      typeof book.Title === "string" ? book.Title : book.Title.toString();
-    const title = stringTitle.toLowerCase();
+        const title = book.title.toLowerCase();
     const result = title.indexOf(search.trim().toLowerCase());
     return result !== -1;
   };
 
   const getRating = (book: Book) => {
     if (applyRating === "bestRating") {
-      return book["Average Rating"] > 4.5;
+      return book.averageRating > 4.5;
     }
     if (applyRating === "worstRating") {
-      return book["Average Rating"] < 4;
+      return book.averageRating < 4;
     }
 
     return true;
@@ -34,7 +32,7 @@ export const useFilters = (books: Book[] | undefined) => {
     const myRating = rated ? book["My Rating"] > 0 : true;
     const unread = haventRead ? book.isUnread : true;
     const searched = search.length > 0 ? getSearch(book) : true;
-    const selectAuthor = authors ? authors.includes(book.Author) : true;
+    const selectAuthor = authors ? authors.includes(book.author) : true;
     // ak sú všetky 4 true, knižka sa zobrazí
     return selectAuthor && rating && myRating && unread && searched;
   };

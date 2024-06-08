@@ -2,7 +2,7 @@ import { Book } from "@/app/types";
 import { Rating, Stack, Typography } from "@mui/material";
 
 type Props = {
-  rating: Book["Average Rating"];
+  rating: Book["averageRating"];
 };
 
 export default function MyRating({ rating }: Props) {

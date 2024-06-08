@@ -1,6 +1,14 @@
 import { BookSource } from "@/data/goodreads";
 
-export type Book = BookSource & {
+export type Book = {
+  id: number;
+  title: string;
+  author: string;
+  myRating: number;
+  averageRating: number;
+  year: number;
+  bookshelves: string;
+  myReview: string;
   isUnread: boolean;
 };
 

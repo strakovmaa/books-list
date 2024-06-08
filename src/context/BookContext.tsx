@@ -3,6 +3,7 @@ import { defaultOption } from "@/components/SelectCount";
 import axios from "axios";
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { useFilters } from "../hooks/useFilters";
+import { getBook } from "./getBook";
 import { BookContextValue } from "./types";
 
 const bookContextDefaultValue = {
@@ -14,9 +15,9 @@ const bookContextDefaultValue = {
   paginationProps: {
     count: undefined,
     page: 1,
-    onChange: () => undefined
+    onChange: () => undefined,
   },
-  totalCount: undefined
+  totalCount: undefined,
 };
 
 export const BookContext = createContext<BookContextValue>(
@@ -45,12 +46,7 @@ export const BookProvider = ({ children }: Props) => {
         `/api/books?itemsOnPage=${itemsOnPage}&page=${page}`
       );
 
-      const books: Book[] = result.data.books.map((book) => {
-        const isUnread =
-          book["Exclusive Shelf"] !== "read" &&
-          book["Exclusive Shelf"] !== "currently-reading";
-        return { ...book, isUnread };
-      });
+      const books: Book[] = result.data.books.map(getBook);
       setTotalCount(result.data.totalCount);
       setPageCount(result.data.pageCount);
       setBooksData(books);
@@ -63,12 +59,12 @@ export const BookProvider = ({ children }: Props) => {
   const handleReadBook = (id: number, newRating: number, newReview: string) => {
     setBooksData((prev) =>
       (prev || []).map((book) => {
-        if (id === book["Book Id"]) {
+        if (id === book.id) {
           return {
             ...book,
             isUnread: false,
-            "My Rating": newRating,
-            "My Review": newReview
+            myRating: newRating,
+            myReview: newReview,
           };
         }
         return book;
@@ -80,7 +76,7 @@ export const BookProvider = ({ children }: Props) => {
   const paginationProps = {
     count: pageCount,
     page,
-    onChange: handlePageChange
+    onChange: handlePageChange,
   };
 
   return (
@@ -92,7 +88,7 @@ export const BookProvider = ({ children }: Props) => {
         handleReadBook,
         booksData,
         paginationProps,
-        totalCount
+        totalCount,
       }}
     >
       {children}
