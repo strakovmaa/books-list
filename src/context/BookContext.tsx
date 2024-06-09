@@ -1,8 +1,8 @@
-import { Book, BooksApiResult } from "@/app/types";
+import { Book, BooksApiResult, FormValue } from "@/app/types";
 import { defaultOption } from "@/components/SelectCount";
 import axios from "axios";
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { useFilters } from "../hooks/useFilters";
+import { useFormContext } from "react-hook-form";
 import { getBook } from "./getBook";
 import { BookContextValue } from "./types";
 
@@ -29,6 +29,13 @@ type Props = {
 };
 
 export const BookProvider = ({ children }: Props) => {
+  const { watch } = useFormContext<FormValue>();
+  const haventRead = watch("haventRead");
+  const applyRating = watch("applyRating");
+  const rated = watch("rated");
+  const search = watch("search");
+  const authors = watch("authors");
+
   const [booksData, setBooksData] = useState<Book[]>();
   const [isLoading, setIsLoading] = useState(true);
   const [itemsOnPage, setItemsOnPage] = useState(defaultOption);
@@ -42,9 +49,17 @@ export const BookProvider = ({ children }: Props) => {
 
   useEffect(() => {
     const loadData = async () => {
-      const result = await axios.get<BooksApiResult>(
-        `/api/books?itemsOnPage=${itemsOnPage}&page=${page}`
-      );
+      const result = await axios.get<BooksApiResult>(`/api/books`, {
+        params: {
+          itemsOnPage,
+          page,
+          haventRead,
+          applyRating,
+          search,
+          rated,
+          authors,
+        },
+      });
 
       const books: Book[] = result.data.books.map(getBook);
       setTotalCount(result.data.totalCount);
@@ -54,7 +69,7 @@ export const BookProvider = ({ children }: Props) => {
     };
     setIsLoading(true);
     loadData();
-  }, [itemsOnPage, page]);
+  }, [applyRating, haventRead, itemsOnPage, page, rated, search, authors]);
 
   const handleReadBook = (id: number, newRating: number, newReview: string) => {
     setBooksData((prev) =>
@@ -72,7 +87,7 @@ export const BookProvider = ({ children }: Props) => {
     );
   };
 
-  const { resultBooks } = useFilters(booksData);
+  const resultBooks = booksData || [];
   const paginationProps = {
     count: pageCount,
     page,

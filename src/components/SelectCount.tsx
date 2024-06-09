@@ -5,16 +5,16 @@ import { BookContext } from "../context/BookContext";
 const countOptions = [
   {
     value: 15,
-    label: "15"
+    label: "15",
+  },
+  {
+    value: 30,
+    label: "30",
   },
   {
     value: 60,
-    label: "60"
+    label: "60",
   },
-  {
-    value: 90,
-    label: "90"
-  }
 ];
 
 export const defaultOption = countOptions[0].value;

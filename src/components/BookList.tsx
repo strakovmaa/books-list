@@ -37,7 +37,7 @@ export default function BookList() {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
             {resultBooks.map((book) => (
-              <Grid key={book.Title} item xs={12} md={4}>
+              <Grid key={book.title} item xs={12} md={4}>
                 <Book book={book} />
               </Grid>
             ))}

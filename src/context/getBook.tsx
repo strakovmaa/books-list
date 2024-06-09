@@ -7,7 +7,7 @@ export const getBook = (book: BookSource): Book => {
   const author = book.Author;
   const myRating = book["My Rating"];
   const averageRating = book["Average Rating"];
-  const year = book["Original Publication Year"];
+  const year = Number(book["Original Publication Year"]);
   const bookshelves = book.Bookshelves;
   const myReview = book["My Review"];
 
