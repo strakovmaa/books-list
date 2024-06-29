@@ -18,6 +18,7 @@ const bookContextDefaultValue = {
     onChange: () => undefined,
   },
   totalCount: undefined,
+  authorsList: [],
 };
 
 export const BookContext = createContext<BookContextValue>(
@@ -41,6 +42,8 @@ export const BookProvider = ({ children }: Props) => {
   const [itemsOnPage, setItemsOnPage] = useState(defaultOption);
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState<number>();
+  const [authorsList, setAuthorsList] = useState<any>();
+
   const [totalCount, setTotalCount] = useState<number>();
 
   const handlePageChange = (_event: never, value: number) => {
@@ -70,6 +73,16 @@ export const BookProvider = ({ children }: Props) => {
     setIsLoading(true);
     loadData();
   }, [applyRating, haventRead, itemsOnPage, page, rated, search, authors]);
+
+  useEffect(() => {
+    const loadData = async () => {
+      const result = await axios.get<BooksApiResult>(`/api/authors`);
+      const authors = result.data;
+      setAuthorsList(authors);
+    };
+
+    loadData();
+  }, []);
 
   const handleReadBook = (id: number, newRating: number, newReview: string) => {
     setBooksData((prev) =>
@@ -104,6 +117,7 @@ export const BookProvider = ({ children }: Props) => {
         booksData,
         paginationProps,
         totalCount,
+        authorsList,
       }}
     >
       {children}

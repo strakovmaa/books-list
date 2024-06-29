@@ -9,6 +9,7 @@ export type BookContextValue = {
   booksData: Book[] | undefined;
   paginationProps: PaginationProps;
   totalCount: number | undefined;
+  authorsList: any[];
 };
 
 export type PaginationProps = {

@@ -1,3 +1,4 @@
+import { FormValue } from "@/app/types";
 import {
   Box,
   Checkbox,
@@ -7,12 +8,11 @@ import {
   RadioGroup,
   Stack,
   Switch,
-  TextField
+  TextField,
 } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 import AutocompleteAuthors from "./AutocompleteAuthors";
 import SelectCount from "./SelectCount";
-import { FormValue } from "@/app/types";
 
 export default function Filters() {
   const { control } = useFormContext<FormValue>();
@@ -27,7 +27,11 @@ export default function Filters() {
               <Controller
                 defaultValue=""
                 render={({ field }) => (
-                  <TextField {...field} fullWidth label="Vyhľadávať" />
+                  <TextField
+                    {...field}
+                    fullWidth
+                    label="Vyhľadávať podľa názvu"
+                  />
                 )}
                 name="search"
                 control={control}

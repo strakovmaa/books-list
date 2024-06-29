@@ -1,15 +1,18 @@
+import { FormValue } from "@/app/types";
 import { Autocomplete, Box, TextField } from "@mui/material";
 import { useContext } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import { BookContext } from "../context/BookContext";
-import { FormValue } from "@/app/types";
 
 export default function AutocompleteAuthors() {
   const { control } = useFormContext<FormValue>();
-  const { booksData } = useContext(BookContext);
+  const { authorsList } = useContext(BookContext);
 
-  const allAuthors = (booksData || []).map((book) => book.author);
-  const uniqueAuthors = [...new Set(allAuthors)];
+  if (authorsList === undefined) {
+    return;
+  }
+
+  const sortedList = authorsList.sort();
 
   return (
     <Controller
@@ -18,7 +21,7 @@ export default function AutocompleteAuthors() {
       render={({ field: { ref, onChange, ...field } }) => (
         <Autocomplete
           multiple
-          options={uniqueAuthors}
+          options={sortedList}
           defaultValue={[]}
           onChange={(_, data) => onChange(data)}
           renderInput={(params) => (
@@ -37,7 +40,7 @@ export default function AutocompleteAuthors() {
               sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
               {...props}
             >
-              {option} ({allAuthors.filter((x) => x == option).length})
+              {option}
             </Box>
           )}
         />
