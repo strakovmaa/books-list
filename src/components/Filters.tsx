@@ -11,7 +11,6 @@ import {
   TextField,
 } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
-import AutocompleteAuthors from "./AutocompleteAuthors";
 import SelectCount from "./SelectCount";
 
 export default function Filters() {
@@ -22,7 +21,7 @@ export default function Filters() {
         <Grid container columnSpacing={{ xs: 1, md: 6 }}>
           <Grid item xs={12} md={7}>
             <Stack rowGap={2}>
-              <AutocompleteAuthors />
+              {/* <AutocompleteAuthors /> */}
 
               <Controller
                 defaultValue=""
